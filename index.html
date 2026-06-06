@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>موسوعة العلماء | الفصول الأول إلى الخامس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fef9f0 0%, #fff4e8 50%, #fef0e0 100%);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            padding: 1.5rem;
+            position: relative;
+            color: #4a3220;
+        }
+
+        /* خلفية ساحرة متحركة */
+        body::before {
+            content: "✨📚🔮🌙⭐✨";
+            font-size: 200px;
+            position: fixed;
+            bottom: -40px;
+            left: -50px;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatMagic 40s infinite alternate;
+        }
+
+        @keyframes floatMagic {
+            0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+            100% { transform: translateX(70px) translateY(-50px) rotate(15deg); }
+        }
+
+        .magic-dust {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(2px 2px at 15% 40%, #f5c6a0, rgba(0,0,0,0)), 
+                              radial-gradient(1px 1px at 75% 85%, #e8b48c, rgba(0,0,0,0));
+            background-size: 200px 220px, 320px 300px;
+            background-repeat: repeat;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+            animation: dustTwinkle 12s infinite alternate;
+        }
+
+        @keyframes dustTwinkle {
+            0% { opacity: 0.06; }
+            100% { opacity: 0.15; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* هيدر ساحر */
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 245, 235, 0.75);
+            backdrop-filter: blur(16px);
+            border-radius: 70px;
+            padding: 1.5rem;
+            border: 1px solid rgba(245, 165, 100, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            animation: softGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes softGlow {
+            0% { box-shadow: 0 5px 20px rgba(245, 165, 100, 0.1); }
+            50% { box-shadow: 0 10px 35px rgba(245, 165, 100, 0.25); }
+            100% { box-shadow: 0 5px 20px rgba(245, 165, 100, 0.1); }
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #b8632a, #e8954a, #f5bc80);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .hero p {
+            margin-top: 10px;
+            font-weight: 500;
+            color: #b87a44;
+        }
+        .stats-badge {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .stats-badge span {
+            background: rgba(245, 165, 100, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid #e8b48c;
+        }
+
+        /* التابات */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: rgba(255, 245, 235, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 165, 100, 0.3);
+            border-radius: 60px;
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #b8632a;
+        }
+        .tab-btn i {
+            margin-left: 6px;
+        }
+        .tab-btn.active {
+            background: linear-gradient(95deg, #e8a35e, #f5bc80);
+            color: white;
+            border-color: #f5bc80;
+            box-shadow: 0 5px 15px rgba(232, 163, 94, 0.3);
+        }
+        .tab-btn:hover:not(.active) {
+            background: rgba(245, 165, 100, 0.25);
+        }
+
+        /* محتوى التاب */
+        .tab-content {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .tab-content.active-tab {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* شبكة العلماء */
+        .scientists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* بطاقات ساحرة */
+        .scientist-card {
+            background: rgba(255, 250, 240, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(245, 165, 100, 0.3);
+        }
+        .scientist-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            background: rgba(255, 250, 240, 0.97);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.12);
+            border-color: #e8954a;
+        }
+
+        .card-header {
+            padding: 0.9rem 1rem;
+            background: linear-gradient(95deg, #e8a35e, #f5bc80);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .scientist-icon {
+            background: rgba(255, 255, 255, 0.25);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .scientist-name {
+            font-size: 1rem;
+            font-weight: 800;
+            flex: 1;
+        }
+
+        .card-body {
+            padding: 0.9rem;
+        }
+        .contribution {
+            background: rgba(245, 165, 100, 0.08);
+            border-radius: 1rem;
+            padding: 0.7rem;
+            margin-bottom: 0.5rem;
+            border-right: 3px solid #e8954a;
+        }
+        .contribution-title {
+            font-weight: 800;
+            font-size: 0.75rem;
+            color: #b8632a;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .contribution-text {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: #4a3220;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 245, 235, 0.6);
+            border-radius: 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            font-size: 0.7rem;
+            color: #c28a55;
+        }
+
+        @media (max-width: 750px) {
+            .scientists-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="magic-dust"></div>
+<div class="container">
+    <div class="hero">
+        <h1><i class="fas fa-landmark"></i> موسوعة العلماء <i class="fas fa-brain"></i><br>الفصول الأول · الثاني · الثالث · الرابع · الخامس</h1>
+        <p>📖 إسهاماتهم العلمية في علم النفس المعرفي والاضطرابات المعرفية والإدراك 📖</p>
+        <div class="stats-badge">
+            <span><i class="fas fa-star"></i> 5 فصول</span>
+            <span><i class="fas fa-user-graduate"></i> 50 عالماً</span>
+            <span><i class="fas fa-gem"></i> تغطية كاملة</span>
+        </div>
+    </div>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" data-tab="tab1"><i class="fas fa-book-open"></i> الفصل الأول</button>
+        <button class="tab-btn" data-tab="tab2"><i class="fas fa-exclamation-triangle"></i> الفصل الثاني</button>
+        <button class="tab-btn" data-tab="tab3"><i class="fas fa-eye"></i> الفصل الثالث</button>
+        <button class="tab-btn" data-tab="tab4"><i class="fas fa-chart-line"></i> الفصل الرابع</button>
+        <button class="tab-btn" data-tab="tab5"><i class="fas fa-crown"></i> الفصل الخامس</button>
+    </div>
+
+    <div id="tab1" class="tab-content active-tab"><div class="scientists-grid" id="chap1Grid"></div></div>
+    <div id="tab2" class="tab-content"><div class="scientists-grid" id="chap2Grid"></div></div>
+    <div id="tab3" class="tab-content"><div class="scientists-grid" id="chap3Grid"></div></div>
+    <div id="tab4" class="tab-content"><div class="scientists-grid" id="chap4Grid"></div></div>
+    <div id="tab5" class="tab-content"><div class="scientists-grid" id="chap5Grid"></div></div>
+    <footer>🔮 كل عالم ترك بصمته في مسيرة المعرفة | رحلة عبر عيون العلم من الفصل الأول إلى الخامس 🔮</footer>
+</div>
+
+<script>
+    // ======================= الفصل الأول: علماء ماهية المعرفة =======================
+    const chapter1Scientists = [
+        { name: "ألريك نيسر (Neisser, 1967)", contribution: "عرّف علم النفس المعرفي بأنه العلم الذي يهتم بدراسة العمليات التي من خلالها تدخل المعلومات الحسية إلى الدماغ وكيفية ترجمتها وتنظيمها وتخزينها واستعادتها لاستخدامها في مجالات الحياة اليومية المختلفة. صاحب أول كتاب بعنوان 'علم النفس المعرفي'.", extra: "أبو علم النفس المعرفي الحديث" },
+        { name: "بيست (Best, 1986)", contribution: "عرّف علم النفس المعرفي بأنه العلم الذي يحاول فهم المعرفة الإنسانية وعلاقتها بسلوك الفرد.", extra: "ركز على العلاقة بين المعرفة والسلوك" },
+        { name: "هنت (Hunt, 1989)", contribution: "عرّف علم النفس المعرفي بأنه الدراسة العلمية التي تحاول فهم طبيعة الذكاء الإنساني والكيفية التي يفكر بها الإنسان.", extra: "اهتم بفهم الذكاء البشري" },
+        { name: "أندرسون (Anderson, 1995)", contribution: "عرّف علم النفس المعرفي بأنه العلم الذي يدرس طبيعة البناء المعرفي للإنسان وكيفية تصرفه في مجالات الحياة اليومية. له كتاب عن العمليات المعرفية (1964).", extra: "من أبرز علماء النفس المعرفي" },
+        { name: "ستيرنبرغ (Sternberg, 2003)", contribution: "عرّف علم النفس المعرفي بأنه العلم الذي يتعامل مع إدراك الناس وفهمهم، وتعلمهم، وتذكرهم، وتفكيرهم حول المعلومات من حولهم.", extra: "اشتهر بنظرية النجاح في الذكاء" },
+        { name: "سولسو (Solso, 1991)", contribution: "عرّف علم النفس المعرفي بأنه الدراسة العلمية للكيفية التي نكتسب بها معلوماتنا عن العالم، والكيفية التي تتمثل بها هذه المعلومات وتحويلها إلى معرفة وعلم، وكيفية الاحتفاظ بها واستخدامها.", extra: "أوضح مجالات علم النفس المعرفي" },
+        { name: "الشرقاوي (1992)", contribution: "عرّف علم النفس المعرفي بأنه العلم الذي يسعى إلى تحقيق فهم العمليات المعرفية للإنسان مثل الانتباه والادراك والتذكر وحل المشكلات والتفكير والتعلم.", extra: "عالم نفس عربي معاصر" },
+        { name: "هابرلاندت (Haberlant, 1993)", contribution: "عرّف علم النفس المعرفي بأنه دراسة آلية معالجة المعلومات وما يتضمنها من عمليات الانتباه والتعرف والتذكر واللغة وحل المشكلات والمنطق.", extra: "ركز على معالجة المعلومات" },
+        { name: "إبنجهاوس (Ebbinghaus)", contribution: "أجرى دراسات في مجال كيفية حدوث العمليات المعرفية. درس التعلم التسلسلي باستخدام المقاطع عديمة المعنى. توصل إلى منحنى وظيفة الاحتفاظ (منحنى النسيان) وأثبت أن النسيان يكون سريعاً بعد التعلم مباشرة.", extra: "أول متخصص تجريبي في علم النفس درس الذاكرة كمياً" },
+        { name: "فونت (Wundt, 1879)", contribution: "أسس أول مختبر لعلم النفس في مدينة لايبزج بألمانيا عام 1879. اهتم بمواضيع علم النفس المعرفي. أسس منهج الاستبطان (التأمل الذاتي) ومبدأ مراقبة الذات.", extra: "أبو علم النفس التجريبي" },
+        { name: "بياجيه (Piaget)", contribution: "قدم أعمالاً حول النمو المعرفي لدى الطفل. طور نظرية المراحل النمائية المعرفية الأربع (الحس حركية، ما قبل العمليات، التفكير المادي، التفكير المجرد). البنية المعرفية مفهوم أساسي في نظريته.", extra: "أشهر منظر في النمو المعرفي" },
+        { name: "نيومان وشانون (Neumann & Shannon)", contribution: "ساهمت نظرياتهم المعلوماتية في تطور علم النفس المعرفي.", extra: "رواد نظرية المعلومات" },
+        { name: "وينر نوربرت (Wiener Norbert)", contribution: "كان للسيبرنطيقا (علم التحكم والسيطرة) التي أسسها دور في ظهور علم النفس المعرفي.", extra: "أبو السيبرنطيقا" },
+        { name: "هاورد جاردنر (Howard Gardner, 1985)", contribution: "ألف كتاب 'تاريخ الثورة المعرفية' موضحاً نواة علم النفس المعرفي الذي يضم علم النفس وعلوم الحاسوب.", extra: "اشتهر بنظرية الذكاءات المتعددة" },
+        { name: "ماير وأورث (Mayer & Orth, 1901)", contribution: "أجرى تجربة في التداعي الحر، وقياس زمن الرجع، ووصف الخبرات الواعية، واكتشفوا ظاهرة 'التفكير الذي يخلو من التصور' (Imageless Thought).", extra: "من أوائل من استخدموا منهج الاستبطان" }
+    ];
+
+    // ======================= الفصل الثاني: علماء الاضطرابات المعرفية =======================
+    const chapter2Scientists = [
+        { name: "فلافيل (Flavell, 1979)", contribution: "حدد ثلاث خصائص للبنية المعرفية: (1) خصائص تتعلق بالفرد، (2) خصائص تتعلق بالمهمة، (3) خصائص تتعلق بالاستراتيجية المتبعة في المعالجة.", extra: "أبو نظرية ما وراء المعرفة" },
+        { name: "الزيات (1998)", contribution: "أكد أن تمثيل المعرفة هو محاولة الفرد استدخال واستيعاب وتسكين المعاني والأفكار والتصورات الذهنية لتصبح جزءاً من البنية المعرفية للفرد.", extra: "عالم نفس مصري بارز" },
+        { name: "بيك (Beck)", contribution: "أول من طرح الاضطرابات المعرفية في الأدب المعرفي عند مناقشته للاكتئاب. افترض أن مرضاه يشاركون في أنماط معالجة معرفية منهجية لكنها خاطئة، وأن المعالجة الخاطئة للمعلومات تنتج عاطفة وسلوكاً مضطرباً.", extra: "مؤسس العلاج المعرفي للاكتئاب" },
+        { name: "سليمان عبد الواحد (2010)", contribution: "أشار إلى أن اضطراب الانتباه ينتشر بنسبة 20% من إجمالي الأطفال الذين يعانون من اضطرابات في التعلم.", extra: "باحث في صعوبات التعلم" },
+        { name: "عادل العدل (2016)", contribution: "صنف الذاكرة وفق مدى بقاء المعلومات إلى ثلاثة أقسام رئيسية: الذاكرة الحسية، والذاكرة قصيرة المدى (وتشمل العاملة)، والذاكرة طويلة المدى.", extra: "صنف الذاكرة إلى ثلاثة أنواع" }
+    ];
+
+    // ======================= الفصل الثالث: علماء الانتباه =======================
+    const chapter3Scientists = [
+        { name: "ميلفن ماركس", contribution: "لخص مفهوم الانتباه في أربع نقاط: (1) وضوح الوعي أو بؤرة الشعور، (2) استعداد الكائن الحي للتركيز، (3) مجموعة من الاستعدادات الحركية، (4) تركيز وانتقاء أو اختيار.", extra: "قدم تعريفاً شاملاً للانتباه" },
+        { name: "برودبنت (Broadbent)", contribution: "واحد من رواد النظريات أحادية المصدر للانتباه، التي تفترض وجود مرشح يسمح لمعالجة مثير واحد فقط ويمنع الآخرين.", extra: "نظرية التصفية المبكرة للانتباه" },
+        { name: "تريسمان (Treisman)", contribution: "قدمت نظرية أحادية المصدر للانتباه، وقسمت البحث إلى نوعين: البحث المتوازي (لمثيرات متشابهة) والبحث المتسلسل (خطوة بخطوة).", extra: "نظرية التخفيف للانتباه" },
+        { name: "كاهنمان (Kahneman)", contribution: "قدم نظرية التوزيع المرن لسعة الانتباه، حيث تفترض أن سعة الانتباه يمكن أن تتغير على نحو مرن تبعاً لمتطلبات المهمة، ويمكن توزيع الانتباه على عدة مهام.", extra: "الحائز على جائزة نوبل في الاقتصاد" },
+        { name: "نورمان (Norman)", contribution: "ساهم في نظريات الانتباه أحادية المصدر ومتعددة المصادر، وقدم مفهوم 'النظام الإشرافي المنشط' المتواجد في الذاكرة لأداء مهام معينة.", extra: "قدم نظرية النظام الإشرافي المنشط" }
+    ];
+
+    // ======================= الفصل الرابع: علماء صعوبات الانتباه =======================
+    const chapter4Scientists = [
+        { name: "كليمنتر (Clements)", contribution: "صاغ مصطلح 'التلف الدماغي البسيط' (Minimal Brain Dysfunction) لوصف مجموعة من الأطفال يتمتعون بذكاء طبيعي ولكن لديهم مشكلات تعليمية و/أو سلوكية في الانتباه والسلوك.", extra: "أحد رواد اضطرابات الانتباه" },
+        { name: "ستراوس (Strauss)", contribution: "وصف مجموعة من المظاهر التي يبديها الأطفال الذين يعانون من تلف دماغي، وتضمنت تلك المظاهر المشكلات السلوكية التي تمثل النشاط الزائد والأنماط السلوكية المفرطة.", extra: "ربط التلف الدماغي بضعف الانتباه" },
+        { name: "هوفمان (Hoffmann, 1845)", contribution: "طبيب ألماني كتب قصيدة وصف فيها طفلاً مندفعاً ومتهوراً في سلوكه ومفرطاً في نشاطه الحركي، وكانت أول الإشارات التاريخية لاضطراب قصور الانتباه المصحوب بالنشاط الزائد.", extra: "أول من وصف أعراض فرط النشاط" },
+        { name: "ستيل (Still)", contribution: "استخلص ملاحظات وصفت خصائص اضطراب قصور الانتباه: (1) التمثيل الزائد بين الذكور مقارنة بالإناث بنسبة 3:1، (2) انتشار الكحولية والسلوك الإجرامي والاكتئاب بين أقارب هؤلاء الأطفال، (3) الاستعداد العائلي المرتفع، (4) احتمالية نشوء الاضطراب من الإصابة المكتسبة في الجهاز العصبي.", extra: "طبيب بريطاني رائد في اضطرابات الطفولة" },
+        { name: "باركلي (Barkley, 1997)", contribution: "أشار إلى ملاحظات ستيل التي كشفتها البحوث اللاحقة. أجرى دراسات حول العلاقة بين أسلوب المعاملة الوالدية وإصابة الطفل باضطراب الانتباه.", extra: "خبير عالمي في ADHD" },
+        { name: "برادو وزملائه (Prado et al.)", contribution: "أجروا فحص تدفق الدم في المخ لدى الأطفال المصابين باضطراب الانتباه أثناء تركيزهم على منبهات مختلفة، وأثبتوا أن الفص الجبهي الأيمن هو المسؤول عن ضعف القدرة على التركيز.", extra: "اكتشفوا دور الفص الجبهي الأيمن في التركيز" },
+        { name: "كابلان (Kaplan)", contribution: "أجرى دراسة للتعرف على طبيعة العلاقة بين الحرمان العاطفي من الوالدين وإصابة أبنائهم الأطفال باضطراب الانتباه، وأظهرت النتائج أن اضطراب الانتباه يرتفع لدى الأطفال المودعين بمؤسسات الإيداع.", extra: "درس تأثير الحرمان العاطفي" }
+    ];
+
+    // ======================= الفصل الخامس: علماء الإدراك (كامل) =======================
+    const chapter5Scientists = [
+        { name: "سولسو (Solso, 1988)", contribution: "عرّف الإدراك بأنه فرع من فروع علم النفس يرتبط بفهم المثيرات الحسية والتبوء بها.", extra: "أحد رواد علم النفس المعرفي" },
+        { name: "أندرايد وماري (Andrade & May, 2004)", contribution: "عرّفا الإدراك بأنه عملية تغيير البيانات الحسية القادمة من الحواس لتكوين صور عقلية عن البيئة.", extra: "اهتما بتكوين الصور العقلية" },
+        { name: "ليندزى ونورمان (Lindsy & Norman, 1977)", contribution: "عرّفا الإدراك بأنه تعديل للانطباعات الحسية عن المثيرات الخارجية من أجل تفسيرها وفهمها.", extra: "ساهما في فهم معالجة المعلومات الحسية" },
+        { name: "بالمر (Palmer, 1975)", contribution: "أجرى دراسة علمية أثبت فيها أن إدراك الشكل يتأثر بالسياق. أظهر أن الفرد يمكنه إدراك الأشكال المبهمة من خلال السياق المحيط بها.", extra: "رائد في دراسة تأثير السياق على الإدراك" },
+        { name: "مار (Marr)", contribution: "يعتبر أن بناء المخططات الأولية يمثل المرحلة الأولى من إدراكنا البصري، وأن هذا المخطط يقوم بالتعرف على التغيرات في الشدة والأطراف داخل نظام حساس للملامح.", extra: "قدم نظرية في الرؤية الحاسوبية والإدراك البصري" },
+        { name: "ليسور (Lissauer)", contribution: "وصف حالة متطورة من أجنيوزيا الشكل (العمه البصري التفهمي) حيث يعاني المريض من صعوبة في محاكاة الأشكال البسيطة والتمييز بينها.", extra: "رائد في دراسة الاجنوزيا البصرية" },
+        { name: "هيكان (Hecaen, 1965)", contribution: "قدم تصنيفاً لأنواع الحبسة الكلامية (الأفيزيا) شمل: الحبسة التعبيرية، الحبسة الاستقبالية، الحبسة النسانية، الحبسة الكلية، واضطرابات الفصام.", extra: "عالم أعصاب فرنسي بارز" },
+        { name: "كارل ويرنك (Carl Wernicke, 1874)", contribution: "اكتشف منطقة في الفص الصدغي الأيسر من الدماغ مسؤولة عن فهم الألفاظ والأصوات. وصف الحبسة الحسية (حبسة ويرنك) حيث يكون الكلام سليماً نحوياً لكنه غير ذي معنى.", extra: "أبو فهم مراكز اللغة في الدماغ" },
+        { name: "بول بروكا (Paul Broca, 1861)", contribution: "اكتشف منطقة بروكا في الفص الجبهي الأيسر المسؤولة عن التعبير الكلامي. وصف حبسة بروكا حيث يفقد المريض القدرة على الكلام رغم سلامة الفهم.", extra: "أبو علم الأعصاب الحديث" },
+        { name: "موهر (Mohr)", contribution: "درس حبسة بروكا وتوصل إلى أن العملية أكثر تعقيداً مما وصفها بروكا، وأن مناطق أخرى من الدماغ قد تكون مصابة بعطب.", extra: "عمق فهم الحبسة الكلامية" },
+        { name: "جولدشتاين وشيرر (Goldstein & Scheerer)", contribution: "طورا اختبار المكعبات لقياس التفكير العياني والتجريدي، وركزا على المنهج الذي يتبعه الفرد في أداء الاختبار بدلاً من النتيجة الكمية.", extra: "رواد في التقييم العصبي النفسي" },
+        { name: "بدير (2007)", contribution: "عرّف الإدراك بأنه العملية النفسية التي تسهم في الوصول إلى معاني الأشياء ودلالاتها والأشخاص والمواقف عن طريق تنظيم المثيرات الحسية وتفسيرها.", extra: "باحث في العمليات المعرفية" },
+        { name: "جلال (2008)", contribution: "أكد أن الإدراك يمثل موقعاً مهماً بين العمليات العقلية الأخرى مثل الإحساس والانتباه والذكاء والتعلم والتذكر.", extra: "ساهم في فهم علاقة الإدراك بالعمليات العقلية" },
+        { name: "أندرسون (Anderson, 1995)", contribution: "عرّف الإدراك بأنه محاولة تفسير المعلومات التي تصل إلى الدماغ. كما ميز بين المعالجة من أعلى إلى أسفل (Top-down) ومن أسفل إلى أعلى (Bottom-up).", extra: "عالم نفس معرفي بارز" },
+        { name: "ستيرنبرغ (Sternberg, 2003)", contribution: "عرّف الإدراك بأنه العملية التي يتم من خلالها التعرف على المثيرات الحسية القادمة من الحواس وتنظيمها وفهمها.", extra: "اشتهر بنظرية النجاح في الذكاء" },
+        { name: "فتحي الزيات (2015)", contribution: "أشار إلى أن صعوبات الإدراك البصري تشمل صعوبات الإغلاق البصري، والقدرة على التعرف على الصيغة الكلية لشيء ما من خلال صيغة جزئية له.", extra: "خبير في صعوبات التعلم" },
+        { name: "وائل عبد الحميد عيد (2017)", contribution: "أكد أن إدراك الشكل يتأثر بالسياق، وأن الفرد يمكنه إدراك الأشكال المختلفة من خلال السياق وخبرته السابقة.", extra: "باحث في الإدراك البصري لدى الطفل" },
+        { name: "ألفت كحلة (2012)", contribution: "شرحت عمليتي البحث البصري والتعرف على الشكل، وبينت أن السياق يلعب دوراً هاماً في التعرف على الأشكال.", extra: "باحثة في علم النفس العصبي" },
+        { name: "جابر عبد الحميد وعلاء كفافي (1996)", contribution: "ساهما في وضع معجم علم النفس والطب النفسي، وتناولا مفاهيم الإدراك والاضطرابات المرتبطة به.", extra: "رواد في المعجم النفسي العربي" },
+        { name: "ليندا صالح الراشد (2010)", contribution: "درست الدلالات التمييزية لمهارات الإدراك البصري لدى التلميذات ذوات صعوبات تعلم القراءة.", extra: "باحثة في صعوبات التعلم" },
+        { name: "كريمان بدير (2007)", contribution: "عرّف الإدراك بأنه عملية تنظيم المثيرات الحسية المتعلقة بالأشياء والأشخاص والمواقف وتفسيرها وصياغتها في كليات ذات معنى.", extra: "باحث في مشكلات الأطفال" },
+        { name: "أحمد سعد جلال (2008)", contribution: "أكد أن الإدراك يمثل الخطوة الأولى في اتصال الفرد ببيئته وتكيفه معها، ويسهم في الوصول إلى معاني الأشياء ودلالاتها.", extra: "عالم نفس مصري" },
+        { name: "د. نرمين حمدي (مؤلفة الفصل)", contribution: "ألفت الفصل الخامس عن اضطرابات الإدراك، وقدمت تعريفات متعددة للإدراك، وشرحت خصائص السلوك الإدراكي، ومراحل الإدراك الحسي، والعوامل المؤثرة في الإدراك، وصعوبات الإدراك المختلفة.", extra: "مؤلفة الكتاب الجامعي" }
+    ];
+
+    function renderChapter(containerId, scientists) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        scientists.forEach((s, idx) => {
+            const card = document.createElement('div');
+            card.className = 'scientist-card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="scientist-icon"><i class="fas fa-user-graduate"></i></div>
+                    <div class="scientist-name">${s.name}</div>
+                </div>
+                <div class="card-body">
+                    <div class="contribution">
+                        <div class="contribution-title"><i class="fas fa-microphone-alt"></i> إسهامه العلمي</div>
+                        <div class="contribution-text">${s.contribution}</div>
+                    </div>
+                    <div class="contribution" style="border-right-color: #f5bc80;">
+                        <div class="contribution-title"><i class="fas fa-star-of-life"></i> نبذة</div>
+                        <div class="contribution-text">${s.extra}</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    renderChapter('chap1Grid', chapter1Scientists);
+    renderChapter('chap2Grid', chapter2Scientists);
+    renderChapter('chap3Grid', chapter3Scientists);
+    renderChapter('chap4Grid', chapter4Scientists);
+    renderChapter('chap5Grid', chapter5Scientists);
+
+    // تبديل التابات
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetId = tab.getAttribute('data-tab');
+            contents.forEach(content => content.classList.remove('active-tab'));
+            tabs.forEach(t => t.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active-tab');
+            tab.classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
